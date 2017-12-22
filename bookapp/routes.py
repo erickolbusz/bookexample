@@ -13,7 +13,6 @@ def parse_htmlbook(page):
 	for ind in range(len(links)):
 		section = {}
 		start = links[ind]
-		print ind, len(links)-1
 		if ind < len(links)-1:
 			end = links[ind+1]
 			patt = ('<A NAME="' + start +
