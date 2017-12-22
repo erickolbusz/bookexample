@@ -39,12 +39,24 @@ def get_chap_links(page):
 	         for link in soup.find_all('a') if link.get('href')]
 	return links
 
+def remove_head_zeroes(s):
+	#e.g. 001 -> 1, 100 -> 100
+	i = 0
+	while i<len(s) and s[i] == '0':
+		i+=1
+	return s[i:]
+
+#-----------------------------------------
 @app.route('/')
 def index():
-	return render_template("index.html")
+	(chapters, text) = parse_htmlbook(BOOK)
+	links = [url_for('chapter', chap=remove_head_zeroes(chapter[4:])) for chapter in chapters]
+	return render_template("index.html", title="Sense and Sensibility", chapters=links)
 
 @app.route('/<chap>')
 def chapter(chap):
 	(chapters, text) = parse_htmlbook(BOOK)
-	key = 'chap' + ('0'+chap if len(chap)==1 else chap)
-	return render_template("section.html", chapters=chapters, text=text[key])
+	strip_chap = remove_head_zeroes(chap)
+	links = [url_for('chapter', chap=remove_head_zeroes(chapter[4:])) for chapter in chapters]
+	key = 'chap' + ('0'+strip_chap if len(strip_chap)==1 else strip_chap)
+	return render_template("section.html", title="Chapter "+strip_chap, chapters=links, text=text[key])

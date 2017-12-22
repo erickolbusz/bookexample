@@ -1,3 +1,4 @@
+<a class="btn chap-btn" href="{{ url_for('index') }}">Return Home</a>
 {% for chapter in chapters %}
-	{{ chapter }}
+	<a class="btn chap-btn" href="{{ chapter }}">Chapter {{ chapter[1:] }}</a>
 {% endfor %}
