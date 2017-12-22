@@ -36,4 +36,8 @@ def get_chap_links(page):
 
 @app.route('/')
 def index():
+	return render_template("index.html")
+
+@app.route('/<chapter>')
+def chapter(chapter):
 	return render_template("base.html")
