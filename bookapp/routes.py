@@ -1,3 +1,4 @@
+from flask import Flask, render_template, url_for
 import re
 from bs4 import BeautifulSoup
 from bookapp import app
@@ -35,4 +36,4 @@ def get_chap_links(page):
 
 @app.route('/')
 def index():
-	return 'test'
+	return render_template("base.html")
