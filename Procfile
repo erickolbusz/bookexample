@@ -1,1 +1,1 @@
-web: gunicorn bookapp:app
+web: python application.py
